@@ -13,13 +13,55 @@
  */
 package com.unitvectory.simplegoogleidtoken;
 
+import lombok.Builder;
+
 /**
- * Provides mechanism for easily exchanging a Google ID token for a Google user ID.
+ * Provides mechanism for easily requesting a Google ID token for a target
+ * audience using a service account.
  * 
  * @author Jared Hatfield (UnitVectorY Labs)
  */
+@Builder(setterPrefix = "with")
 public class SimpleGoogleIdToken {
 
-    // TODO: Implement everything
-    
+    /**
+     * The configuration for loading the service account.
+     */
+    @Builder.Default
+    private ServiceAccountConfig serviceAccountConfig = new ServiceAccountDefaultGoogleCredentialsConfig();
+
+    /**
+     * The configuring for making the HTTP request to get the Google ID token.
+     */
+    @Builder.Default
+    private GoogleIdTokenRequest googleIdTokenRequest = new GoogleIdTokenHttpURLConnectionRequest();
+
+    /**
+     * Requests a Google ID token for the target audience using the service account.
+     * 
+     * @param request the request
+     * @return the response
+     */
+    public SimpleResponse getIdToken(SimpleRequest request) {
+
+        // Input validation
+
+        if (request == null) {
+            throw new IllegalArgumentException("Request cannot be null");
+        }
+
+        if (serviceAccountConfig == null) {
+            throw new SimpleSignException("serviceAccountConfig cannot be null");
+        }
+
+        if (googleIdTokenRequest == null) {
+            throw new SimpleExchangeException("googleIdTokenRequest cannot be null");
+        }
+
+        // Generate the JWT
+        String jwt = this.serviceAccountConfig.signServiceAccountJwt(request);
+
+        // Exchange for the ID token
+        return this.googleIdTokenRequest.getGoogleIdToken(jwt);
+    }
 }
