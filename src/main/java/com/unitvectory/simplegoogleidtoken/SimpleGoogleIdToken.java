@@ -31,12 +31,6 @@ public class SimpleGoogleIdToken {
     private ServiceAccountConfig serviceAccountConfig = new ServiceAccountDefaultGoogleCredentialsConfig();
 
     /**
-     * The configuring for making the HTTP request to get the Google ID token.
-     */
-    @Builder.Default
-    private GoogleIdTokenRequest googleIdTokenRequest = new GoogleIdTokenHttpURLConnectionRequest();
-
-    /**
      * Requests a Google ID token for the target audience using the service account.
      * 
      * @param request the request
@@ -54,14 +48,7 @@ public class SimpleGoogleIdToken {
             throw new SimpleSignException("serviceAccountConfig cannot be null");
         }
 
-        if (googleIdTokenRequest == null) {
-            throw new SimpleExchangeException("googleIdTokenRequest cannot be null");
-        }
-
-        // Generate the JWT
-        String jwt = this.serviceAccountConfig.signServiceAccountJwt(request);
-
-        // Exchange for the ID token
-        return this.googleIdTokenRequest.getGoogleIdToken(jwt);
+        // Get the JWT
+        return this.serviceAccountConfig.signServiceAccountJwt(request);
     }
 }

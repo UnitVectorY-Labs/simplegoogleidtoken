@@ -14,9 +14,11 @@
 package com.unitvectory.simplegoogleidtoken;
 
 /**
- * The interface for requesting a Google ID token given the JWT from the service account.
+ * The interface for requesting a Google ID token given the JWT from the service
+ * account.
  * 
- * This interface allows for separate implementations for different underlying HTTP clients.
+ * This interface allows for separate implementations for different underlying
+ * HTTP clients.
  * 
  * @author Jared Hatfield (UnitVectorY Labs)
  */
@@ -27,6 +29,12 @@ public interface GoogleIdTokenRequest {
      */
     public static final String GOOGLE_TOKEN_URL = "https://oauth2.googleapis.com/token";
 
-    SimpleResponse getGoogleIdToken(String jwt);
+    /**
+     * Exchanges the service account JWT for a Google ID token.
+     * 
+     * @param serviceAccountJwt the service account JWT
+     * @return the response
+     */
+    SimpleResponse getGoogleIdToken(String serviceAccountJwt);
 
 }

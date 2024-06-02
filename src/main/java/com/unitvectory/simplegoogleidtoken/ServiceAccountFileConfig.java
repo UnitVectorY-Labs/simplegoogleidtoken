@@ -28,15 +28,25 @@ import lombok.Builder;
 public class ServiceAccountFileConfig implements ServiceAccountConfig {
 
     /**
+     * The configuring for making the HTTP request to get the Google ID token.
+     */
+    @Builder.Default
+    private GoogleIdTokenRequest googleIdTokenRequest = new GoogleIdTokenHttpURLConnectionRequest();
+
+    /**
      * The path to the service account file.
      */
     private final String filePath;
 
     @Override
-    public String signServiceAccountJwt(SimpleRequest request) {
+    public SimpleResponse signServiceAccountJwt(SimpleRequest request) {
 
         if (request == null) {
             throw new IllegalArgumentException("request not provided");
+        }
+
+        if (googleIdTokenRequest == null) {
+            throw new SimpleExchangeException("googleIdTokenRequest not provided");
         }
 
         if (filePath == null) {
@@ -59,7 +69,10 @@ public class ServiceAccountFileConfig implements ServiceAccountConfig {
         long now = System.currentTimeMillis();
 
         // Generate and sign the JWT
-        return LocalSignerHelper.createJWT(accountInfo, request, now);
+        String serviceAccountJwt = LocalSignerHelper.createJWT(accountInfo, request, now);
+
+        // Exchange for the ID token
+        return this.googleIdTokenRequest.getGoogleIdToken(serviceAccountJwt);
     }
 
 }

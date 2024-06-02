@@ -30,13 +30,13 @@ import com.google.gson.Gson;
 public class GoogleIdTokenHttpURLConnectionRequest implements GoogleIdTokenRequest {
 
     @Override
-    public SimpleResponse getGoogleIdToken(String jwt) {
+    public SimpleResponse getGoogleIdToken(String serviceAccountJwt) {
         Gson gson = SimpleUtil.GSON;
 
         try {
             String payload = String.format("grant_type=%s&assertion=%s",
                     URLEncoder.encode("urn:ietf:params:oauth:grant-type:jwt-bearer", StandardCharsets.UTF_8),
-                    URLEncoder.encode(jwt, StandardCharsets.UTF_8));
+                    URLEncoder.encode(serviceAccountJwt, StandardCharsets.UTF_8));
 
             HttpURLConnection con = createConnection(GOOGLE_TOKEN_URL, payload);
 

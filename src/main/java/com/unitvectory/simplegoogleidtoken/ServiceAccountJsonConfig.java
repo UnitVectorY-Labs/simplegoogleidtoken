@@ -18,7 +18,8 @@ import com.google.gson.Gson;
 import lombok.Builder;
 
 /**
- * The service account configuration that passes the service account JSON content in directly.
+ * The service account configuration that passes the service account JSON
+ * content in directly.
  * 
  * @author Jared Hatfield (UnitVectorY Labs)
  */
@@ -26,31 +27,45 @@ import lombok.Builder;
 public class ServiceAccountJsonConfig implements ServiceAccountConfig {
 
     /**
+     * The configuring for making the HTTP request to get the Google ID token.
+     */
+    @Builder.Default
+    private GoogleIdTokenRequest googleIdTokenRequest = new GoogleIdTokenHttpURLConnectionRequest();
+
+    /**
      * The service account JSON credentials.
      */
     private final String serviceAccountJson;
 
     @Override
-    public String signServiceAccountJwt( SimpleRequest request) {
+    public SimpleResponse signServiceAccountJwt(SimpleRequest request) {
 
-        if(request == null) {
+        if (request == null) {
             throw new IllegalArgumentException("request cannot be null");
         }
 
-        if(serviceAccountJson == null) {
+        if (googleIdTokenRequest == null) {
+            throw new SimpleExchangeException("googleIdTokenRequest not provided");
+        }
+
+        if (serviceAccountJson == null) {
             throw new SimpleSignException("serviceAccountJson not provided");
         }
 
-        Gson gson  = SimpleUtil.GSON;
+        Gson gson = SimpleUtil.GSON;
 
         // Parse the service account JSON
-        GoogleServiceAccountCredentials accountInfo =  gson.fromJson(serviceAccountJson, GoogleServiceAccountCredentials.class);
+        GoogleServiceAccountCredentials accountInfo = gson.fromJson(serviceAccountJson,
+                GoogleServiceAccountCredentials.class);
 
         // JWT requires the current time for expiration
         long now = System.currentTimeMillis();
 
-        // Generate and sign the JWT 
-        return LocalSignerHelper.createJWT(accountInfo, request, now);
+        // Generate and sign the JWT
+        String serviceAccountJwt = LocalSignerHelper.createJWT(accountInfo, request, now);
+
+        // Exchange for the ID token
+        return this.googleIdTokenRequest.getGoogleIdToken(serviceAccountJwt);
     }
 
 }

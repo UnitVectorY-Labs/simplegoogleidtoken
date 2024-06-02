@@ -27,7 +27,7 @@ public interface ServiceAccountConfig {
      * an ID token.
      * 
      * @param request the request
-     * @return the signed JWT
+     * @return the response
      */
-    String signServiceAccountJwt(SimpleRequest request);
+    SimpleResponse signServiceAccountJwt(SimpleRequest request);
 }
