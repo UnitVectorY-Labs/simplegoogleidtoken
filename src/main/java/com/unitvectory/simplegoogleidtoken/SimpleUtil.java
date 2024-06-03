@@ -15,11 +15,14 @@ package com.unitvectory.simplegoogleidtoken;
 
 import com.google.gson.Gson;
 
+import lombok.experimental.UtilityClass;
+
 /**
  * Internal utility class.
  * 
  * @author Jared Hatfield (UnitVectorY Labs)
  */
+@UtilityClass
 class SimpleUtil {
 
     /**
