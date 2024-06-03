@@ -16,7 +16,8 @@ package com.unitvectory.simplegoogleidtoken;
 import lombok.experimental.StandardException;
 
 /**
- * A simple exception throw when the exchange of the JWT for a Google ID token fails.
+ * A simple exception throw when the exchange of the JWT for a Google ID token
+ * fails.
  * 
  * @author Jared Hatfield (UnitVectorY Labs)
  */

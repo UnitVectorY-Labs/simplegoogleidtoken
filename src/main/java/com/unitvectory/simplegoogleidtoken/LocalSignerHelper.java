@@ -23,6 +23,7 @@ import java.util.TreeMap;
 import com.google.gson.Gson;
 
 import lombok.NonNull;
+import lombok.experimental.UtilityClass;
 
 /**
  * Helper class to sign a JWT with a Service Account private key.
@@ -32,6 +33,7 @@ import lombok.NonNull;
  * 
  * @author Jared Hatfield (UnitVectorY Labs)
  */
+@UtilityClass
 class LocalSignerHelper {
 
     private static final String SERVICE_ACCOUNT_TOKEN_AUDIENCE = "https://oauth2.googleapis.com/token";

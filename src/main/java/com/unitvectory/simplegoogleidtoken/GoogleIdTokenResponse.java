@@ -28,6 +28,6 @@ class GoogleIdTokenResponse {
     private int expires_in;
 
     private String token_type;
-    
+
     private String id_token;
 }

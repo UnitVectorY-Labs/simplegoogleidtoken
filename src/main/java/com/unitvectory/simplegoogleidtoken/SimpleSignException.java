@@ -14,8 +14,10 @@
 package com.unitvectory.simplegoogleidtoken;
 
 import lombok.experimental.StandardException;
+
 /**
- * A simple exception thrown when the signing of the JWT with the service account fails.
+ * A simple exception thrown when the signing of the JWT with the service
+ * account fails.
  * 
  * @author Jared Hatfield (UnitVectorY Labs)
  */
