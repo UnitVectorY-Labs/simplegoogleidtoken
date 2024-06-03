@@ -22,7 +22,7 @@ import lombok.Getter;
  * @author Jared Hatfield (UnitVectorY Labs)
  */
 @Getter
-@Builder
+@Builder(setterPrefix = "with")
 public class SimpleResponse {
 
     /**
