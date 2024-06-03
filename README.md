@@ -1,4 +1,4 @@
-[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0) [![Maven Central](https://img.shields.io/maven-central/v/com.unitvectory/simplegoogleidtoken)](https://central.sonatype.com/artifact/com.unitvectory/simplegoogleidtoken) [![javadoc](https://javadoc.io/badge2/com.unitvectory/simplegoogleidtoken/javadoc.svg)](https://javadoc.io/doc/com.unitvectory/simplegoogleidtoken)
+[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0) [![Maven Central](https://img.shields.io/maven-central/v/com.unitvectory/simplegoogleidtoken)](https://central.sonatype.com/artifact/com.unitvectory/simplegoogleidtoken) [![javadoc](https://javadoc.io/badge2/com.unitvectory/simplegoogleidtoken/javadoc.svg)](https://javadoc.io/doc/com.unitvectory/simplegoogleidtoken) [![codecov](https://codecov.io/gh/UnitVectorY-Labs/simplegoogleidtoken/graph/badge.svg?token=V8Uy1YGU2u)](https://codecov.io/gh/UnitVectorY-Labs/simplegoogleidtoken)
 
 # simplegoogleidtoken
 
