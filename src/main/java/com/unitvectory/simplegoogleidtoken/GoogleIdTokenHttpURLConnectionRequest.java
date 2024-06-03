@@ -44,7 +44,7 @@ public class GoogleIdTokenHttpURLConnectionRequest implements GoogleIdTokenReque
 
             GoogleIdTokenResponse tokenResponse = gson.fromJson(response, GoogleIdTokenResponse.class);
 
-            return SimpleResponse.builder().idToken(tokenResponse.getId_token()).build();
+            return SimpleResponse.builder().withIdToken(tokenResponse.getId_token()).build();
 
         } catch (Exception e) {
             throw new SimpleExchangeException("Failed to get ID token", e);

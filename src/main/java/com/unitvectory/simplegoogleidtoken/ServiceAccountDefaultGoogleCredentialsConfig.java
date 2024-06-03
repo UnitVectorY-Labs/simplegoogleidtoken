@@ -64,7 +64,7 @@ public class ServiceAccountDefaultGoogleCredentialsConfig implements ServiceAcco
         // Get the ID token
         try {
             String idToken = idTokenCredentials.refreshAccessToken().getTokenValue();
-            return SimpleResponse.builder().idToken(idToken).build();
+            return SimpleResponse.builder().withIdToken(idToken).build();
         } catch (IOException e) {
             throw new SimpleSignException("Failed to get ID token", e);
         }
