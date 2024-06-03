@@ -1,4 +1,4 @@
-[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
+[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0) [![Maven Central](https://img.shields.io/maven-central/v/com.unitvectory/simplegoogleidtoken)](https://central.sonatype.com/artifact/com.unitvectory/simplegoogleidtoken) [![javadoc](https://javadoc.io/badge2/com.unitvectory/simplegoogleidtoken/javadoc.svg)](https://javadoc.io/doc/com.unitvectory/simplegoogleidtoken)
 
 # simplegoogleidtoken
 
@@ -14,11 +14,17 @@ The issuer of these tokens will be `https://accounts.google.com` which has a JWK
 
 ## Getting Started
 
-This library requires Java 17.
+This library requires Java 17 and is available in the Maven Central Repository:
 
-It is not yet available on Maven Central.
+```xml
+<dependency>
+    <groupId>com.unitvectory</groupId>
+    <artifactId>simplegoogleidtoken</artifactId>
+    <version>0.0.1</version>
+</dependency>
+```
 
-When utilizing this library and running on GCP the `google-auth-library-oauth2-http` library is required.  This library is available on Maven Central and must be included in addition to `simplegoogleidtoken`.
+When utilizing this library and running on GCP the `google-auth-library-oauth2-http` library is required.  This library is available on Maven Central and must be included in addition to `simplegoogleidtoken`. This optional dependency is not needed if the service account credentials JSON file is provided directly.  This is intentional to reduce the number of required dependencies which is limited to only GSON as the mandatory dependency.
 
 ```xml
 <dependency>
