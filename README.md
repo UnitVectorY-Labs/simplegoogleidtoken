@@ -42,7 +42,7 @@ import com.unitvectory.simplegoogleidtoken.SimpleRequest;
 
 public class GCPExample {
 
-    public String getIdToken(String serviceAccountKeyFilePath) {
+    public String getIdToken() {
 
         String audience = "https://example.com";
 
