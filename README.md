@@ -89,3 +89,58 @@ public class LocalExample {
     }
 }
 ```
+
+## Under the Covers
+
+How does GCP's API work for Identity tokens?  This is accomplished through Google's OAuth endpoint.  The following is a brief overview of how this token exchange occurs which is also a description of what this library implements, this isn't particurally complicated.
+
+The POST payload here is a `application/x-www-form-urlencoded` payload with a grant type of `urn:ietf:params:oauth:grant-type:jwt-bearer` with the `assertion` parameter including the JWT from the service account.
+
+```
+POST https://oauth2.googleapis.com/token
+Content-Type: application/x-www-form-urlencoded
+
+grant_type=urn%3Aietf%3Aparams%3Aoauth%3Agrant-type%3Ajwt-bearer&assertion=TOKENHERE
+```
+
+The assertion is a JWT with the following format...
+
+The header Google expects for this are:
+
+```json
+{
+  "alg": "HS256",
+  "typ": "JWT"
+}
+```
+
+The payload is as follows with the key input being `target_audience` as this will be the audience of the generated token.
+
+```json
+{
+    "iss": "example-service-account@example.iam.gserviceaccount.com",
+    "sub": "example-service-account@example.iam.gserviceaccount.com",
+    "aud": "https://oauth2.googleapis.com/token",
+    "iat": 1723155553,
+    "exp": 1723159153,
+    "target_audience": "https://targetaudience.example.com"
+}
+```
+
+In the case that a JSON file from a GCP service account is being used, that JSON file looks like the following.  The two key attributes here are `client_email` which is used in bothe the `iss` and `sub` of the JWT that is being sigened and the `private_key` that is being used for the signing.
+
+```json
+{
+  "type": "service_account",
+  "project_id": "example",
+  "private_key_id": "00000000000000000000000000000000000000000",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nPRIVATEKEYGOESHERE\n-----END PRIVATE KEY-----\n",
+  "client_email": "example-service-account@example.iam.gserviceaccount.com",
+  "client_id": "0000000000000000000000",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/example-service-account%40example.iam.gserviceaccount.com",
+  "universe_domain": "googleapis.com"
+}
+```
