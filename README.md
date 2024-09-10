@@ -22,7 +22,7 @@ This library requires Java 17 and is available in the Maven Central Repository:
 <dependency>
     <groupId>com.unitvectory</groupId>
     <artifactId>simplegoogleidtoken</artifactId>
-    <version>0.0.2</version>
+    <version>0.0.3</version>
 </dependency>
 ```
 
