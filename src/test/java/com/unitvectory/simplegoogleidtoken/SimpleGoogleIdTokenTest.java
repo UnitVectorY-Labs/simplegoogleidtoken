@@ -24,10 +24,10 @@ import org.junit.jupiter.api.Test;
  * 
  * @author Jared Hatfield (UnitVectorY Labs)
  */
-public class SimpleGoogleIdTokenTest {
+class SimpleGoogleIdTokenTest {
 
     @Test
-    public void nullRequestTest() {
+    void nullRequestTest() {
         SimpleGoogleIdToken simpleGoogleIdToken = SimpleGoogleIdToken.builder().withServiceAccountConfig(null).build();
         IllegalArgumentException exception = assertThrows(IllegalArgumentException.class,
                 () -> simpleGoogleIdToken.getIdToken(null));
@@ -35,7 +35,7 @@ public class SimpleGoogleIdTokenTest {
     }
 
     @Test
-    public void nullConfigTest() {
+    void nullConfigTest() {
         SimpleGoogleIdToken simpleGoogleIdToken = SimpleGoogleIdToken.builder().withServiceAccountConfig(null).build();
         SimpleSignException exception = assertThrows(SimpleSignException.class, () -> simpleGoogleIdToken
                 .getIdToken(SimpleRequest.builder().withTargetAudience("https://example.com").build()));
@@ -43,7 +43,7 @@ public class SimpleGoogleIdTokenTest {
     }
 
     @Test
-    public void mockTest() {
+    void mockTest() {
         SimpleGoogleIdToken simpleGoogleIdToken = SimpleGoogleIdToken.builder()
                 .withServiceAccountConfig(new ServiceAccountConfig() {
 

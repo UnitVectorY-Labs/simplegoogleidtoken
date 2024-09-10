@@ -40,7 +40,7 @@ class LocalSignerHelper {
 
     private static final String BEGIN_PRIVATE_KEY = "-----BEGIN PRIVATE KEY-----";
 
-    public static final String END_PRIVATE_KEY = "-----END PRIVATE KEY-----";
+    private static final String END_PRIVATE_KEY = "-----END PRIVATE KEY-----";
 
     static String createJWT(@NonNull GoogleServiceAccountCredentials serviceAccountInfo,
             @NonNull SimpleRequest simpleRequest, long currentTimeMillis) {

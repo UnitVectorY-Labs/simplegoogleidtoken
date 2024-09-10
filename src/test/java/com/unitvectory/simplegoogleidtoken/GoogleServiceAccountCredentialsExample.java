@@ -18,9 +18,9 @@ package com.unitvectory.simplegoogleidtoken;
  * 
  * @author Jared Hatfield (UnitVectorY Labs)
  */
-public class GoogleServiceAccountCredentialsExample {
+class GoogleServiceAccountCredentialsExample {
 
-    public static GoogleServiceAccountCredentials exampleObject() {
+    static GoogleServiceAccountCredentials exampleObject() {
         GoogleServiceAccountCredentials credentials = new GoogleServiceAccountCredentials();
         credentials.setClient_email("example@example.com");
 
@@ -56,7 +56,7 @@ public class GoogleServiceAccountCredentialsExample {
         return credentials;
     }
 
-    public static String exampleJson() {
+    static String exampleJson() {
         return SimpleUtil.GSON.toJson(exampleObject());
     }
 }

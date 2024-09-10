@@ -24,10 +24,10 @@ import org.junit.jupiter.api.Test;
  * 
  * @author Jared Hatfield (UnitVectorY Labs)
  */
-public class ServiceAccountJsonConfigTest {
+class ServiceAccountJsonConfigTest {
 
     @Test
-    public void requestNullTest() {
+    void requestNullTest() {
         ServiceAccountJsonConfig serviceAccountJsonConfig = ServiceAccountJsonConfig.builder().build();
         IllegalArgumentException exception = assertThrows(IllegalArgumentException.class,
                 () -> serviceAccountJsonConfig.signServiceAccountJwt(null));
@@ -35,7 +35,7 @@ public class ServiceAccountJsonConfigTest {
     }
 
     @Test
-    public void googleIdTokenRequestNullTest() {
+    void googleIdTokenRequestNullTest() {
         ServiceAccountJsonConfig serviceAccountJsonConfig = ServiceAccountJsonConfig.builder()
                 .withGoogleIdTokenRequest(null).build();
         SimpleExchangeException exception = assertThrows(SimpleExchangeException.class,
@@ -45,7 +45,7 @@ public class ServiceAccountJsonConfigTest {
     }
 
     @Test
-    public void serviceAccountJsonNullTest() {
+    void serviceAccountJsonNullTest() {
         ServiceAccountJsonConfig serviceAccountJsonConfig = ServiceAccountJsonConfig.builder()
                 .withServiceAccountJson(null).build();
         SimpleSignException exception = assertThrows(SimpleSignException.class,
@@ -55,7 +55,7 @@ public class ServiceAccountJsonConfigTest {
     }
 
     @Test
-    public void tokenTest() {
+    void tokenTest() {
         ServiceAccountJsonConfig serviceAccountJsonConfig = ServiceAccountJsonConfig.builder()
                 .withServiceAccountJson(GoogleServiceAccountCredentialsExample.exampleJson())
                 .withGoogleIdTokenRequest(new GoogleIdTokenRequest() {

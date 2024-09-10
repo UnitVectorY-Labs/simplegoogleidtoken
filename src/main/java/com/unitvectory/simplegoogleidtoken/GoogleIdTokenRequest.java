@@ -27,7 +27,7 @@ public interface GoogleIdTokenRequest {
     /**
      * The Google token URL.
      */
-    public static final String GOOGLE_TOKEN_URL = "https://oauth2.googleapis.com/token";
+    static final String GOOGLE_TOKEN_URL = "https://oauth2.googleapis.com/token";
 
     /**
      * Exchanges the service account JWT for a Google ID token.

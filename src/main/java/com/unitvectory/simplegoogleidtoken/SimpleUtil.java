@@ -28,5 +28,5 @@ class SimpleUtil {
     /**
      * Shared GSO instance.
      */
-    public static final Gson GSON = new Gson();
+    static final Gson GSON = new Gson();
 }
