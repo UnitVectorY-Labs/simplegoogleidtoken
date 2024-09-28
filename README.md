@@ -22,7 +22,7 @@ This library requires Java 17 and is available in the Maven Central Repository:
 <dependency>
     <groupId>com.unitvectory</groupId>
     <artifactId>simplegoogleidtoken</artifactId>
-    <version>0.0.3</version>
+    <version>0.0.4</version>
 </dependency>
 ```
 
@@ -32,7 +32,7 @@ When utilizing this library and running on GCP the `google-auth-library-oauth2-h
 <dependency>
     <groupId>com.google.auth</groupId>
     <artifactId>google-auth-library-oauth2-http</artifactId>
-    <version>1.23.0</version>
+    <version>1.27.0</version>
 </dependency>
 ```
 
