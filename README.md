@@ -109,7 +109,7 @@ The header Google expects for this are:
 
 ```json
 {
-  "alg": "HS256",
+  "alg": "RS256",
   "typ": "JWT"
 }
 ```
