@@ -14,13 +14,17 @@
 package com.unitvectory.simplegoogleidtoken;
 
 import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonSyntaxException;
 
 /**
  * Requests a Google ID token using a HTTP URL connection.
@@ -33,21 +37,41 @@ public class GoogleIdTokenHttpURLConnectionRequest implements GoogleIdTokenReque
     public SimpleResponse getGoogleIdToken(String serviceAccountJwt) {
         Gson gson = SimpleUtil.GSON;
 
+        String payload = String.format("grant_type=%s&assertion=%s",
+                URLEncoder.encode("urn:ietf:params:oauth:grant-type:jwt-bearer", StandardCharsets.UTF_8),
+                URLEncoder.encode(serviceAccountJwt, StandardCharsets.UTF_8));
+
+        HttpURLConnection con = null;
         try {
-            String payload = String.format("grant_type=%s&assertion=%s",
-                    URLEncoder.encode("urn:ietf:params:oauth:grant-type:jwt-bearer", StandardCharsets.UTF_8),
-                    URLEncoder.encode(serviceAccountJwt, StandardCharsets.UTF_8));
 
-            HttpURLConnection con = createConnection(GOOGLE_TOKEN_URL, payload);
+            con = createConnection(GOOGLE_TOKEN_URL, payload);
 
-            String response = readResponse(con);
+            int responseCode = con.getResponseCode();
+
+            String response;
+            if (responseCode == HttpURLConnection.HTTP_OK) {
+                response = readResponse(con.getInputStream());
+            } else {
+                throw new SimpleExchangeException(
+                        "Failed to get ID token. Response Code: " + responseCode);
+            }
 
             GoogleIdTokenResponse tokenResponse = gson.fromJson(response, GoogleIdTokenResponse.class);
 
             return SimpleResponse.builder().withIdToken(tokenResponse.getId_token()).build();
 
+        } catch (IOException e) {
+            throw new SimpleExchangeException("IO error occurred while getting ID token", e);
+        } catch (JsonSyntaxException e) {
+            throw new SimpleExchangeException("Failed to parse ID token response", e);
+        } catch (SimpleExchangeException e) {
+            throw e; // Re-throwing the custom exception
         } catch (Exception e) {
-            throw new SimpleExchangeException("Failed to get ID token", e);
+            throw new SimpleExchangeException("Unexpected error occurred while getting ID token", e);
+        } finally {
+            if (con != null) {
+                con.disconnect();
+            }
         }
     }
 
@@ -57,12 +81,14 @@ public class GoogleIdTokenHttpURLConnectionRequest implements GoogleIdTokenReque
         con.setRequestMethod("POST");
         con.setDoOutput(true);
         con.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
-        con.getOutputStream().write(payload.getBytes(StandardCharsets.UTF_8));
+        try (OutputStream os = con.getOutputStream()) {
+            os.write(payload.getBytes(StandardCharsets.UTF_8));
+        }
         return con;
     }
 
-    private String readResponse(HttpURLConnection con) throws Exception {
-        try (BufferedReader reader = new BufferedReader(new InputStreamReader(con.getInputStream()))) {
+    private String readResponse(InputStream stream) throws Exception {
+        try (BufferedReader reader = new BufferedReader(new InputStreamReader(stream))) {
             StringBuilder response = new StringBuilder();
             String line;
             while ((line = reader.readLine()) != null) {
