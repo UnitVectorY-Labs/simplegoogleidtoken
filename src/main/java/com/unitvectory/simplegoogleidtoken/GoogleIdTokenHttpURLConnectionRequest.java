@@ -33,6 +33,24 @@ import com.google.gson.JsonSyntaxException;
  */
 public class GoogleIdTokenHttpURLConnectionRequest implements GoogleIdTokenRequest {
 
+    private final String tokenUrl;
+
+    /**
+     * Creates a new instance using the default Google token URL.
+     */
+    public GoogleIdTokenHttpURLConnectionRequest() {
+        this.tokenUrl = GOOGLE_TOKEN_URL;
+    }
+
+    /**
+     * Creates a new instance using a custom token URL.
+     * 
+     * @param tokenUrl the token URL
+     */
+    GoogleIdTokenHttpURLConnectionRequest(String tokenUrl) {
+        this.tokenUrl = tokenUrl;
+    }
+
     @Override
     public SimpleResponse getGoogleIdToken(String serviceAccountJwt) {
         Gson gson = SimpleUtil.GSON;
@@ -44,7 +62,7 @@ public class GoogleIdTokenHttpURLConnectionRequest implements GoogleIdTokenReque
         HttpURLConnection con = null;
         try {
 
-            con = createConnection(GOOGLE_TOKEN_URL, payload);
+            con = createConnection(this.tokenUrl, payload);
 
             int responseCode = con.getResponseCode();
 
