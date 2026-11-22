@@ -18,5 +18,4 @@ config:
   docs:
     enabled: false
   gitignore:
-    - /.apt_generated_tests/
-    - .vscode
+    - .vscode/
