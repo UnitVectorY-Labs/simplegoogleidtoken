@@ -4,11 +4,19 @@ config:
   description: "simplegoogleidtoken is a lightweight Java library for effortlessly exchanging Google Cloud Service Account credentials for Google ID tokens"
   license: Apache-2.0
   language: java17
+  release: none
   release_github: true
   status: active
+  osv: sarif
   codecov:
     enabled: true
     token: V8Uy1YGU2u
   maven:
     group_id: com.unitvectory
     artifact_id: simplegoogleidtoken
+    javadoc: true
+  docs:
+    enabled: false
+  gitignore:
+    - /.apt_generated_tests/
+    - .vscode
