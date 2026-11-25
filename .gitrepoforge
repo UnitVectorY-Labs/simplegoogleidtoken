@@ -8,9 +8,6 @@ config:
   release_github: true
   status: active
   osv: sarif
-  codecov:
-    enabled: true
-    token: V8Uy1YGU2u
   maven:
     group_id: com.unitvectory
     artifact_id: simplegoogleidtoken
